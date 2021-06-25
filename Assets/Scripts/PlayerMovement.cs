@@ -17,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        playerRB.AddForce(0, 0, forwardForce * Time.deltaTime); // Time.deltaTime calculates a time since last frame
+
         if (Input.GetKey("d")) 
         {
             playerRB.AddForce(sidewayFroce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
@@ -27,6 +29,9 @@ public class PlayerMovement : MonoBehaviour
             playerRB.AddForce(-sidewayFroce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
         }
 
-        playerRB.AddForce(0, 0, forwardForce * Time.deltaTime); // Time.deltaTime calculates a time since last frame
+        if (playerRB.position.y < -1) 
+        {
+            FindObjectOfType<GameManager>().GameOver();
+        }
     }
 }
